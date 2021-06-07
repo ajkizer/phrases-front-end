@@ -20,14 +20,14 @@ const Login = () => {
 
 
     const login = async () => {
-        const url = `${mainRoot}/auth/login`
+        const url = `${auth}/login`
 
         
         try {
             const res = await axios.post(url, formData);
          
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("currentUserUrbz", JSON.stringify(res.data.user));
+            localStorage.setItem("currentUserPhrases", JSON.stringify(res.data.user));
     
             setAuthToken(res.data.token);
             
@@ -38,11 +38,11 @@ const Login = () => {
     }
 
     const [formData, setFormData] = useState({
-        name: "",
+        username: "",
         password: ""
     });
 
-    const { name, password } = formData;
+    const { username, password } = formData;
 
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -56,12 +56,12 @@ const Login = () => {
 
     return (
         <Col xs={{ span: 12 }} md={{ span: 6, offset: 3 }}>
-            <h3>Urbz Login</h3>
+            <h3>Login to Profile</h3>
             <Form onSubmit={onSubmit}>
 
                 <Form.Group controlId="login.name">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" value={name} name="name" onChange={onChange} />
+                    <Form.Control type="text" value={username} name="name" onChange={onChange} />
                 </Form.Group>
                 <Form.Group controlId="login.password">
                     <Form.Label>Password</Form.Label>

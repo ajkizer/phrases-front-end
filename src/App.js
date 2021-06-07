@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {BrowserRouter as Router} from 'react-router-dom';
 
+import Routing from './pages/Login'
+
 import setAuthToken from './utils/setAuthToken';
 
 
@@ -17,8 +19,7 @@ function App() {
   return (
     <Router>
     <div className="App">
-      
-
+      <Routing/>
     </div>
     </Router>
   );
