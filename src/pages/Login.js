@@ -61,7 +61,7 @@ const Login = () => {
 
                 <Form.Group controlId="login.name">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" value={username} name="name" onChange={onChange} />
+                    <Form.Control type="text" value={username} name="username" onChange={onChange} />
                 </Form.Group>
                 <Form.Group controlId="login.password">
                     <Form.Label>Password</Form.Label>

@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import Routing from './pages/Login'
+import Routing from './routing/Routing'
 
 import setAuthToken from './utils/setAuthToken';
 
