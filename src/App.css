@@ -1,3 +1,9 @@
+:root {
+ --shadow-basic: 1px 2px 5px 0px rgba(0,0,0,.4);
+}
+
+
+
 .App {
   text-align: center;
 }
@@ -34,10 +40,19 @@
 }
 
 .dashboard__experiences .card {
-  box-shadow:  1px 2px 5px 0px rgba(0,0,0,.4);
+  box-shadow:  var(--shadow-basic);
   cursor: pointer;
 }
 
+
+.phrases {
+  margin: 1rem 0;
+}
+
+.phrases .card {
+  margin: 1rem 0;
+  box-shadow:var(--shadow-basic)
+}
 
 @keyframes App-logo-spin {
   from {

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom';
 import {devMain} from '../utils/apiURLs';
 import axios from 'axios';
-import { Card } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 
 const Experience = () => {
     const param = useParams();
@@ -23,9 +23,10 @@ const Experience = () => {
     },[])
 
     const Phrases = () => {
-        return (<>{phrases.map(phrase => <Card>{phrase.meaning}</Card>)}</>)
+        return (<div className="phrases">{phrases.map(phrase => <Col md={{span: 6, offset: 3}}><Card><Card.Body><Card.Text>{phrase.meaning}</Card.Text><Card.Text><em>"{phrase.phrase}"</em></Card.Text></Card.Body></Card></Col>)}</div>)
     }
 
+    console.log(phrases);
     return (
         <div>
             Experience {param.id}
