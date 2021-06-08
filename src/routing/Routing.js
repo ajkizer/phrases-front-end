@@ -4,6 +4,7 @@ import Dashboard from '../pages/Dashboard';
 import Experience from '../pages/Experience';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import PhrasePage from '../pages/PhrasePage'
 
 
 const Routing = () => {
@@ -14,6 +15,7 @@ const Routing = () => {
             <Route exact path="/dashboard"><Dashboard/>
             </Route>
             <Route exact path="/dashboard/experiences/:id"><Experience/></Route>
+            <Route exact path="/dashboard/experiences/:id/phrases/:id"><PhrasePage/></Route>
         </Switch>
     )
 }

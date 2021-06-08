@@ -17,6 +17,11 @@ const Experience = () => {
     }
 
 
+    const updatePhrases = (data) => {
+        setPhrases([data, ...phrases])
+    }
+
+
     useEffect(() => {
         getPhrases();
     }, [])
@@ -32,7 +37,7 @@ const Experience = () => {
         return (<div className="phrases">{phrases.map(phrase => <PhraseCard phrase={phrase} />)}</div>)
     }
 
-    const AddPhrase = () => {
+    const AddPhrase = ({ updatePhrases }) => {
         const [show, setShow] = useState(false);
         const [formData, setFormData] = useState({
             phrase: "",
@@ -51,7 +56,7 @@ const Experience = () => {
             const URL = `${devMain}/experiences/${param.id}/phrases`
             try {
                 const res = await axios.post(URL, formData)
-                console.log(res);
+                updatePhrases(res.data.data);
                 handleClose();
             } catch (error) {
                 console.log(error);
@@ -85,7 +90,7 @@ const Experience = () => {
 
     return (
         <div>
-            <AddPhrase />
+            <AddPhrase updatePhrases={updatePhrases} />
             Experience {param.id}
             <div>{loading ? "loading..." : <Phrases />}</div>
         </div>
