@@ -20,14 +20,16 @@ const Login = () => {
 
 
     const login = async () => {
-        const url = `${auth}/login`
+        let url = `${auth}/login`
 
         
         try {
-            const res = await axios.post(url, formData);
+            let res = await axios.post(url, formData);
          
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("currentUserPhrases", JSON.stringify(res.data.user));
+
+            url = `${auth}/me`
+         
     
             setAuthToken(res.data.token);
             
