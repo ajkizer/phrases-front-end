@@ -46,7 +46,8 @@ const Experience = () => {
         const { phrase, meaning } = formData;
 
 
-        const addPhrase = async () => {
+        const addPhrase = async (e) => {
+            e.preventDefault();
             const URL = `${devMain}/experiences/${param.id}/phrases`
             try {
                 const res = await axios.post(URL, formData)
