@@ -7,6 +7,7 @@ import { Card, Row, Col, Button, Form, Modal } from 'react-bootstrap'
 const PhrasePage = () => {
     const [phrase, setPhrase] = useState({})
     const [loading, toggleLoading] = useState(true);
+    const [mode, setMode] = useState("viewAll")
     const { id } = useParams();
 
 
@@ -18,14 +19,15 @@ const PhrasePage = () => {
 
 
     const updatePhrase = (item) => {
-        setPhrase({...phrase, variations: [...phrase.variations, item]})
+        setPhrase({ ...phrase, variations: [...phrase.variations, item] })
     }
 
     useEffect(() => {
         getPhrase();
     }, [])
 
-    console.log(phrase);
+    const startStudySession = () => setMode("flashCards")
+    const viewAll = () => setMode("viewAll")
 
 
     const Variation = ({ variation }) => {
@@ -115,7 +117,13 @@ const PhrasePage = () => {
                 <Card>
                     <h2>Phrase: {phrase.phrase}</h2>
                     <p>{phrase.meaning}</p>
-                    <AddVariation updatePhrase={updatePhrase}/>
+                    <Row>
+                        <Col>
+                            <AddVariation updatePhrase={updatePhrase} />
+                            <div><Button variant="light" onClick={startStudySession}><i class="fas fa-books"></i></Button></div>
+                            <div><Button onClick={viewAll}>View All</Button></div>
+                        </Col>
+                    </Row>
                 </Card>
             </Col>
             <Row>
