@@ -41,6 +41,8 @@ const PhrasePage = () => {
         )
     }
 
+    console.log(mode)
+
 
     const FlashCard = ({ variation }) => {
         const [showAnswer, setShowAnswer] = useState(false)
@@ -89,6 +91,9 @@ const PhrasePage = () => {
         }
 
 
+
+
+
         return (<div className="phrases__add-variation"> <Button onClick={handleShow}>
             Add Variation
         </Button>
@@ -108,6 +113,36 @@ const PhrasePage = () => {
 
             </Modal></div>)
     }
+
+
+
+
+    const Study = ({ variations }) => {
+
+
+        const shuffleArray = array => {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+
+            return array
+        }
+
+
+        const shuffled = shuffleArray(variations);
+
+        return (<div>{shuffled.length && shuffled.map(item => <FlashCard variation={item} />)}</div>)
+
+    }
+
+
+
+
+    const TakeNotes = () => {
+        return (<div></div>)
+    }
+
     return (
 
         loading ? <>"loading"</> : <div>
@@ -121,15 +156,13 @@ const PhrasePage = () => {
                         <Col>
                             <AddVariation updatePhrase={updatePhrase} />
                             <div><Button variant="light" onClick={startStudySession}><i class="fas fa-books"></i></Button></div>
-                            <div><Button onClick={viewAll}>View All</Button></div>
+                            <div><Button variant="light" onClick={viewAll}><i class="fad fa-pencil-alt"></i></Button></div>
                         </Col>
                     </Row>
                 </Card>
             </Col>
             <Row>
-
-                {phrase.variations.length && phrase.variations.map(item => <FlashCard variation={item} />
-                )}
+                <Study variations={phrase.variations} />
             </Row>
         </div >)
 }
