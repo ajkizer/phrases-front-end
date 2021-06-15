@@ -30,7 +30,13 @@ const Experience = () => {
 
 
     const PhraseCard = ({ phrase }) => {
-        return (<Col md={{ span: 6, offset: 3 }}><Link to={`/dashboard/experiences/${param.id}/phrases/${phrase._id}`}><Card className="phrases__card"><Card.Body><Card.Text>{phrase.meaning}</Card.Text><Card.Text><em>"{phrase.phrase}"</em></Card.Text></Card.Body></Card></Link></Col>)
+        const deletePhrase = async () => {
+            await axios.delete(`${devMain}/phrases/${phrase._id}`);
+            setPhrases(phrases.filter(item => item._id !== phrase._id))
+        }
+
+
+        return (<Col md={{ span: 6, offset: 3 }}><Card className="phrases__card"><Card.Body><Button onClick={deletePhrase}>X</Button><Link to={`/dashboard/experiences/${param.id}/phrases/${phrase._id}`}><Card.Text>{phrase.meaning}</Card.Text><Card.Text><em>"{phrase.phrase}"</em></Card.Text></Link></Card.Body></Card></Col>)
     }
 
     const Phrases = () => {
