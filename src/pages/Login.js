@@ -8,7 +8,7 @@ import {auth} from '../utils/apiURLs';
 const Login = () => {
 
     const checkIfLoggedIn = () => {
-        let user = JSON.parse(localStorage.getItem("currentUserPhrases"));
+        let user = JSON.parse(localStorage.getItem("phrasesCurrentUser"));
     
         if(!user) return
     }
