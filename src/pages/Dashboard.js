@@ -109,7 +109,38 @@ const Dashboard = () => {
 
 
 
-    const Experiences = () => { return (<div className="dashboard__experiences"><h3>Hello, {currentUser.username}</h3>{experiences.map(experience => <Col md={{ span: 6, offset: 3 }}><Link to={`/dashboard/experiences/${experience._id}`} ><Card><p>Native Language: {experience.nativeLanguage}</p><p>Target Language: {experience.targetLanguage}</p></Card></Link></Col>)}</div>) }
+    const Experiences = () => {
+
+
+
+        const removeExperience = async (id) => {
+            const URL = `${devMain}/experiences/${id}`
+            console.log(URL)
+
+            try {
+                console.log(await axios.delete(URL))
+                setExperiences(experiences.filter(item => item._id !== id))
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+
+        return (
+            <div className="dashboard__experiences">
+                <h3>Hello, {currentUser.username}</h3>
+                {experiences.map(experience => <Col md={{ span: 6, offset: 3 }}>
+
+                    <Card>
+                        <Link to={`/dashboard/experiences/${experience._id}`} >
+                            <p>Native Language: {experience.nativeLanguage}</p>
+                            <p>Target Language: {experience.targetLanguage}</p>
+                        </Link>
+                        <Button onClick={(e) => { removeExperience(experience._id) }}>Delete</Button>
+                    </Card>
+
+                </Col>)}</div>)
+    }
 
     return (
         <div className="dashboard">

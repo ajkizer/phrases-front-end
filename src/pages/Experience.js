@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { devMain } from '../utils/apiURLs';
 import axios from 'axios';
 import { Card, Col, Modal, Button, Form, Row } from 'react-bootstrap';
+import FlashCards from '../components/activities/Study';
 
 const Experience = () => {
     const [phrases, setPhrases] = useState([]);
@@ -94,11 +95,58 @@ const Experience = () => {
             </Modal></div>)
     }
 
+
+    const Selection = ({mode}) => {
+
+        const [children, setChildren] = useState([])
+
+
+        const getAllPhrases = async () => {
+
+            const URL = `${devMain}/experiences/${param.id}/phrases?v=0`
+            const phrases = await axios.get(URL);
+
+            setChildren(phrases.data.data);
+        }
+        
+        useEffect(() => {
+            getAllPhrases();
+        },[])
+        
+        return(<div>{mode === "viewPhrases" ? <Phrases/> : mode === "flashCards" ? <FlashCards children={children}/> : <></>}</div>)
+
+    }
+
+    const Options = () => {
+        const [mode, setMode] = useState("");
+
+        const viewPhrases = () => {
+            setMode("viewPhrases")
+        }
+
+        const flashCards = () => {
+            setMode("flashCards");
+        }
+
+        return (
+            <div>
+            <Row>
+                <Col>
+                <Button onClick={viewPhrases}>View Phrases</Button></Col><Col><Button onClick={flashCards}>Study</Button></Col>
+                <Col><AddPhrase updatePhrases={updatePhrases} /></Col>
+            </Row>
+            <Selection mode={mode}/>
+            </div>
+        )
+    }
+
+
+
+
     return (
         <div>
-            <AddPhrase updatePhrases={updatePhrases} />
             Experience {param.id}
-            <div>{loading ? "loading..." : <Phrases />}</div>
+            <div>{loading ? "loading..." : <Options/>}</div>
         </div>
     )
 }

@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom';
 import { devMain } from '../utils/apiURLs'
 import { Card, Row, Col, Button, Form, Modal } from 'react-bootstrap'
 import AddChild from '../components/forms/AddChild';
-import FlashCard from '../components/cards/FlashCard';
 import Variation from '../components/cards/Variation'
-import {shuffleArray} from '../utils/shuffle';
+import Study from '../components/activities/Study'
 
 const PhrasePage = () => {
     const [currentPhrase, setCurrentPhrase] = useState({})
@@ -40,36 +39,7 @@ const PhrasePage = () => {
 
 
 
-    const Study = ({ children }) => {
-        const [cards, setCards] = useState()
 
-
-
-        useEffect(() => {
-            const deck = shuffleArray(children);
-            setCards(deck);
-        }, [])
-
-
-
-        const showNext = () => {
-            let deck = cards;
-
-            const currentCard = deck[0]
-
-            deck.push(currentCard);
-
-            deck.shift();
-
-            console.log(deck);
-
-
-            setCards([...deck])
-        }
-
-        return (<div>{cards && cards.length > 0 && <FlashCard child={cards[0]} showNext={showNext} />}</div>)
-
-    }
 
 
 
@@ -95,7 +65,7 @@ const PhrasePage = () => {
                     <div><Button variant="light" onClick={startStudySession}><i class="fas fa-books"></i></Button></div>
 
 
-                    <div><Button variant="light" onClick={viewAll}><i class="fad fa-pencil-alt"></i></Button></div>
+                    <div><Button variant="light" onClick={viewAll}><i class="fad fa-eye"></i></Button></div>
 
                 </Card>
             </Col>
