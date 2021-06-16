@@ -41,8 +41,8 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <NavBarGen/>
-      <Routing/>
+      <NavBarGen auth={auth}/>
+      <Routing auth={auth}/>
     </div>
     </Router>
   );

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navbar, NavDropdown, Nav } from 'react-bootstrap';
 
-const NavBarGen = () => {
+const NavBarGen = ({ auth }) => {
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("currentUserPhrases")
@@ -21,7 +21,9 @@ const NavBarGen = () => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link href="/" onClick={logout}>Logout</Nav.Link>
+
+                    {auth.isAuthenticated ? <Nav.Link href="/login" onClick={logout}>Logout</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
+
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
