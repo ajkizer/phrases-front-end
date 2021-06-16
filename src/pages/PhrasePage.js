@@ -67,10 +67,9 @@ const PhrasePage = () => {
             setCards([...deck])
         }
 
-        return (<div>{cards && <FlashCard child={cards[0]} showNext={showNext} />}</div>)
+        return (<div>{cards && cards.length > 0 && <FlashCard child={cards[0]} showNext={showNext} />}</div>)
 
     }
-
 
 
 
