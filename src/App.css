@@ -53,3 +53,8 @@
   margin: 1rem 0;
   box-shadow:var(--shadow-basic)
 }
+
+.options__buttons {
+  display: flex;
+  justify-content: center;
+}

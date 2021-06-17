@@ -57,6 +57,7 @@ const PhrasePage = () => {
                 <Card>
                     <h2>Phrase: {currentPhrase.phrase}</h2>
                     <p>{currentPhrase.meaning}</p>
+                    {currentPhrase.nativeText && <em>{currentPhrase.nativeText}</em>}
 
 
                     <AddChild updatePhrase={updatePhrase} currentPhrase={currentPhrase} />

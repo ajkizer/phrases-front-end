@@ -4,11 +4,12 @@ import { devMain } from '../utils/apiURLs';
 import axios from 'axios';
 import { Card, Col, Modal, Button, Form, Row } from 'react-bootstrap';
 import FlashCards from '../components/activities/Study';
+import DeleteConfirm from '../components/forms/DeleteConfirm';
 
 const Experience = () => {
     const [phrases, setPhrases] = useState([]);
     const [loading, toggleLoading] = useState(true);
-
+    
     const param = useParams();
 
     const getPhrases = async () => {
@@ -31,13 +32,22 @@ const Experience = () => {
 
 
     const PhraseCard = ({ phrase }) => {
-        const deletePhrase = async () => {
-            await axios.delete(`${devMain}/phrases/${phrase._id}`);
-            setPhrases(phrases.filter(item => item._id !== phrase._id))
+        const deletePhrase = async (e) => {
+            e.preventDefault();
+            try {
+               
+                await axios.delete(`${devMain}/phrases/${phrase._id}`);
+            } catch (error) {
+                console.log(error)
+            }
+
+           const updateIndex = phrases.map(item => item._id).indexOf(phrase._id);
+
+            setPhrases([...phrases.slice(0, updateIndex), ...phrases.slice(updateIndex+1)])
         }
 
 
-        return (<Col md={{ span: 6, offset: 3 }}><Card className="phrases__card"><Card.Body><Button onClick={deletePhrase}>X</Button><Link to={`/dashboard/experiences/${param.id}/phrases/${phrase._id}`}><Card.Text>{phrase.meaning}</Card.Text><Card.Text><em>"{phrase.phrase}"</em></Card.Text></Link></Card.Body></Card></Col>)
+        return (<Col md={{ span: 6, offset: 3 }}><Card className="phrases__card"><Card.Body><Button onClick={deletePhrase}><i className="fas fa-trash"></i></Button><Link to={`/dashboard/experiences/${param.id}/phrases/${phrase._id}`}><Card.Text>{phrase.meaning}</Card.Text><Card.Text><em>"{phrase.phrase}"</em></Card.Text><Card.Text>{phrase.nativeText && phrase.nativeText}</Card.Text></Link></Card.Body></Card></Col>)
     }
 
     const Phrases = () => {
@@ -118,7 +128,7 @@ const Experience = () => {
     }
 
     const Options = () => {
-        const [mode, setMode] = useState("");
+        const [mode, setMode] = useState("viewPhrases");
 
         const viewPhrases = () => {
             setMode("viewPhrases")
@@ -129,14 +139,16 @@ const Experience = () => {
         }
 
         return (
-            <div>
-            <Row>
-                <Col>
-                <Button onClick={viewPhrases}>View Phrases</Button></Col><Col><Button onClick={flashCards}>Study</Button></Col>
-                <Col><AddPhrase updatePhrases={updatePhrases} /></Col>
-            </Row>
-            <Selection mode={mode}/>
-            </div>
+            <Col>
+                
+                    <div  className="options__buttons">
+                    <Col xs={{span: 1}}><Button onClick={viewPhrases}>View Phrases</Button></Col>
+                    <Col xs={{span: 1}}><Button onClick={flashCards}>Study</Button></Col>
+                    <Col xs={{span: 1}}><AddPhrase updatePhrases={updatePhrases} /></Col>
+                    </div>
+               
+                <Selection mode={mode}/>
+            </Col>
         )
     }
 
@@ -145,7 +157,6 @@ const Experience = () => {
 
     return (
         <div>
-            Experience {param.id}
             <div>{loading ? "loading..." : <Options/>}</div>
         </div>
     )
