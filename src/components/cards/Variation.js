@@ -25,7 +25,7 @@ const Variation = ({ child, children, setChildren }) => {
         <Col className="mx-auto" md={{ span: 4 }}>
             <Card>
                 <Card.Body>
-                    {/* <DeleteConfirm deleteFunction={deletePhrase}/> */}
+                    <Button onClick={deletePhrase} variant="light"><i class="fas fa-trash"></i></Button>
                     <EditPhrase child={child} setChildren={setChildren} children={children} />
                     <p>Phrase: {child.phrase}</p>
                     <p>Meaning: {child.meaning}</p>
