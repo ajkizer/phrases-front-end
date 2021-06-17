@@ -15,7 +15,7 @@ const Routing = () => {
             <Route exact path="/dashboard"><Dashboard/>
             </Route>
             <Route exact path="/dashboard/experiences/:id"><Experience/></Route>
-            <Route exact path="/dashboard/experiences/:id/phrases/:id"><PhrasePage/></Route>
+            <Route exact path="/dashboard/experiences/:id/phrases/:phrase_id"><PhrasePage/></Route>
         </Switch>
     )
 }

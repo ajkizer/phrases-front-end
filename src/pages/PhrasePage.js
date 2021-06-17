@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, Redirect, useParams } from 'react-router-dom';
 import { devMain } from '../utils/apiURLs'
 import { Card, Row, Col, Button, Form, Modal } from 'react-bootstrap'
 import AddChild from '../components/forms/AddChild';
@@ -14,9 +14,8 @@ const PhrasePage = () => {
     const [mode, setMode] = useState("viewAll")
     const { id, phrase_id } = useParams();
 
-
     const getPhrase = async () => {
-        const res = await axios.get(`${devMain}/phrases/${id}`)
+        const res = await axios.get(`${devMain}/phrases/${phrase_id}`)
         setCurrentPhrase(res.data.data.phrase);
         setChildren(res.data.data.children);
         toggleLoading(false);
@@ -48,12 +47,15 @@ const PhrasePage = () => {
         return (<div>{children.map(item => <Variation setChildren={setChildren} children={children} key={item._id} child={item} />)}</div>)
     }
 
+
+
     return (
 
         loading ? <>"loading"</> : <div>
 
 
             <Col md={{ span: 7 }} className="mx-auto mb-2">
+                <Button variant="light"><Link to={`/dashboard/experiences/${id}`}><i class="fas fa-arrow-left"></i></Link></Button>
                 <Card>
                     <h2>Phrase: {currentPhrase.phrase}</h2>
                     <p>{currentPhrase.meaning}</p>
