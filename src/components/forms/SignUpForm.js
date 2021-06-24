@@ -6,7 +6,7 @@ import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import {auth} from '../../utils/apiURLs'
 
-const SignUpForm = () => {
+const SignUpForm = ({toggleHasAccount}) => {
 
     const [formData, setFormData] = useState({
         username: "",
@@ -50,19 +50,20 @@ const SignUpForm = () => {
     return (<><h3>Login to Profile</h3>
         <Form onSubmit={onSubmit}>
 
-            <Form.Group controlId="login.name">
+            <Form.Group controlId="signup.name">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" value={username} name="username" onChange={onChange} />
             </Form.Group>
-            <Form.Group controlId="login.name">
+            <Form.Group controlId="signup.email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="text" value={email} name="email" onChange={onChange} />
             </Form.Group>
-            <Form.Group controlId="login.password">
+            <Form.Group controlId="signup.password">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" value={password} name="password" onChange={onChange} />
             </Form.Group>
             <Button type="submit">Submit</Button>
+            <small onClick={() => toggleHasAccount(true)}>Already have an account?</small>
         </Form></>)
 }
 
