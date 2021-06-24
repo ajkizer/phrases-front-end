@@ -10,3 +10,4 @@ Language learning application based on Tim Ferriss' 13 sentences to learn any la
 - Adding dictionary functionality
 - General styling
 - Adding Tests
+- Breaking app into smaller components
