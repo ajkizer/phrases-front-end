@@ -11,7 +11,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (!localStorage.getItem("token")) {
-            window.location.href = "/"
+            window.location.href = "/login"
         }
         getExperiences();
         getCurrentUser();
@@ -129,6 +129,8 @@ const Dashboard = () => {
         return (
             <div className="dashboard__experiences">
                 <h3>Hello, {currentUser.username}</h3>
+
+                {experiences.length === 0 && <p>No experiences found</p>}
                 {experiences.map(experience => <Col md={{ span: 6, offset: 3 }}>
 
                     <Card>

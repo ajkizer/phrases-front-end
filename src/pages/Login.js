@@ -3,37 +3,37 @@ import { Form, Col, Button } from 'react-bootstrap'
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 
-import {auth} from '../utils/apiURLs';
+import { auth } from '../utils/apiURLs';
 
 const Login = () => {
 
     const checkIfLoggedIn = () => {
         let user = JSON.parse(localStorage.getItem("phrasesCurrentUser"));
-    
-        if(!user) return
+
+        if (!user) return
     }
 
     useEffect(() => {
         checkIfLoggedIn()
-    },[])
+    }, [])
 
 
 
     const login = async () => {
         let url = `${auth}/login`
 
-        
+
         try {
             let res = await axios.post(url, formData);
-         
+
             localStorage.setItem("token", res.data.token);
 
             url = `${auth}/me`
-         
-    
+
+
             setAuthToken(res.data.token);
-            
-            window.location.href="/dashboard"
+
+            window.location.href = "/dashboard"
         } catch (error) {
             console.error(error);
         }
@@ -50,15 +50,15 @@ const Login = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const onSubmit = e => {
-        e.preventDefault();
-        login();
-    }
 
 
-    return (
-        <Col xs={{ span: 12 }} md={{ span: 6, offset: 3 }}>
-            <h3>Login to Profile</h3>
+    const LoginForm = () => {
+        const onSubmit = e => {
+            e.preventDefault();
+            login();
+        }
+
+        return (<><h3>Login to Profile</h3>
             <Form onSubmit={onSubmit}>
 
                 <Form.Group controlId="login.name">
@@ -70,7 +70,36 @@ const Login = () => {
                     <Form.Control type="password" value={password} name="password" onChange={onChange} />
                 </Form.Group>
                 <Button type="submit">Submit</Button>
-            </Form>
+            </Form></>)
+    }
+
+
+    const SignUpForm = () => {
+        const onSubmit = e => {
+            e.preventDefault();
+        }
+
+        return (<><h3>Login to Profile</h3>
+            <Form onSubmit={onSubmit}>
+                <Form.Group controlId="signup.name">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" value={username} name="username" onChange={onChange} />
+                </Form.Group>
+                <Form.Group controlId="signup.name">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" value={username} name="username" onChange={onChange} />
+                </Form.Group>
+                <Form.Group controlId="signup.password">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" value={password} name="password" onChange={onChange} />
+                </Form.Group>
+                <Button type="submit">Submit</Button>
+            </Form></>)
+    }
+
+    return (
+        <Col xs={{ span: 12 }} md={{ span: 6, offset: 3 }}>
+            <LoginForm />
         </Col>
     )
 }
