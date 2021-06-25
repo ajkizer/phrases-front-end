@@ -24,13 +24,14 @@ const LoginForm = ({toggleHasAccount}) => {
             let res = await axios.post(url, formData);
 
             localStorage.setItem("token", res.data.token);
+           
 
-            url = `${auth}/me`
 
 
             setAuthToken(res.data.token);
 
-            window.location.href = "/dashboard"
+            window.location.href="/dashboard"
+           
         } catch (error) {
             console.error(error);
         }

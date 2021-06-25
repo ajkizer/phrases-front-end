@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, NavDropdown, Nav } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
-const NavBarGen = ({ auth }) => {
+const NavBarGen = ({ authState }) => {
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("currentUserPhrases")
@@ -15,7 +15,7 @@ const NavBarGen = ({ auth }) => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/dashboard">My Languages</Nav.Link>
-                    {auth.isAuthenticated ? <Nav.Link onClick={logout} href="/login">Logout</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
+                    {authState.isAuthenticated ? <Nav.Link onClick={logout} href="/login">Logout</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

@@ -31,6 +31,7 @@ const SignUpForm = ({toggleHasAccount}) => {
             let res = await axios.post(url, formDataCopy);
 
             localStorage.setItem("token", res.data.token);
+        
 
             setAuthToken(res.data.token);
 

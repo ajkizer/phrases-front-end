@@ -2,20 +2,13 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { devMain, auth } from '../utils/apiURLs'
 import { Col, Card, Modal, Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
-const Dashboard = () => {
+const Dashboard = ({authState}) => {
     const [loading, toggleLoading] = useState(true);
     const [experiences, setExperiences] = useState([]);
-    const [currentUser, setCurrentUser] = useState(null)
+    const [currentUser, setCurrentUser] = useState()
 
-    useEffect(() => {
-        if (!localStorage.getItem("token")) {
-            window.location.href = "/login"
-        }
-        getExperiences();
-        getCurrentUser();
-    }, [])
 
 
     const getExperiences = async () => {
@@ -24,6 +17,7 @@ const Dashboard = () => {
         try {
             const res = await axios.get(`${devMain}/experiences`)
             setExperiences(res.data.data);
+            
         } catch (error) {
             console.log(error);
         }
@@ -33,21 +27,27 @@ const Dashboard = () => {
     }
 
     const getCurrentUser = async () => {
-        const user = localStorage.getItem("phrasesCurrentUser");
+        const user = localStorage.getItem("currentUserPhrases");
 
 
         if (user) {
             return setCurrentUser(JSON.parse(user))
         }
+
         try {
             const res = await axios.get(`${auth}/me`);
             setCurrentUser(res.data.data);
-            localStorage.setItem("phrasesCurrentUser", JSON.stringify(res.data.data))
+            localStorage.setItem("currentUserPhrases", JSON.stringify(res.data.data))
         } catch (error) {
             console.log(error);
         }
     }
 
+
+    useEffect(() => {
+        getCurrentUser()
+        getExperiences();
+    }, [])
 
     const AddExperience = () => {
         const [show, setShow] = useState(false);
@@ -87,6 +87,7 @@ const Dashboard = () => {
 
         return (
             <div className="experiences__add-experiencew">
+                
                 <Button onClick={handleShow}>Add Experience</Button>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
@@ -128,7 +129,8 @@ const Dashboard = () => {
 
         return (
             <div className="dashboard__experiences">
-                <h3>Hello, {currentUser.username}</h3>
+                {loading ? "loading" :   <h3>Hello, {authState.username}</h3>}
+              
 
                 {experiences.length === 0 && <p>No experiences found</p>}
                 {experiences.map(experience => <Col md={{ span: 6, offset: 3 }}>

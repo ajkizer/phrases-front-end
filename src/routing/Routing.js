@@ -7,12 +7,12 @@ import Login from '../pages/Login';
 import PhrasePage from '../pages/PhrasePage'
 
 
-const Routing = () => {
+const Routing = ({authState}) => {
     return (
         <Switch>
             <Route exact path="/"><Home/></Route>
-            <Route exact path="/login"><Login/></Route>
-            <Route exact path="/dashboard"><Dashboard/>
+            <Route exact path="/login"><Login authState={authState}/></Route>
+            <Route exact path="/dashboard"><Dashboard authState={authState}/>
             </Route>
             <Route exact path="/dashboard/experiences/:id"><Experience/></Route>
             <Route exact path="/dashboard/experiences/:id/phrases/:phrase_id"><PhrasePage/></Route>

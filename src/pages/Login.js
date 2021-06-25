@@ -5,13 +5,12 @@ import SignUpForm from '../components/forms/SignUpForm';
 
 
 
-const Login = () => {
+const Login = ({authState}) => {
     const [hasAccount, toggleHasAccount] = useState(true);
 
     const checkIfLoggedIn = () => {
-        const token = localStorage.getItem("token");
-
-        if(token) {
+ 
+        if(authState.isAuthenticated) {
             window.location.href="/dashboard"
         }
     }

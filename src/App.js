@@ -18,17 +18,17 @@ if(localStorage.getItem("token")){
 
 function App() {
 
-  const [auth, setAuth] = useState({
+  const [authState, setAuth] = useState({
     user: {},
     isAuthenticated: false,
   })
 
-  console.log(auth);
+
 
   const checkIfAuthenticated = () => {
     if(localStorage.getItem("token"))
     {
-      const user = JSON.parse(localStorage.getItem("phrasesCurrentUser"));
+      const user = JSON.parse(localStorage.getItem("currentUserPhrases"));
       const isAuthenticated = true;
       setAuth({user, isAuthenticated})
     }
@@ -41,8 +41,8 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <NavBarGen auth={auth}/>
-      <Routing auth={auth}/>
+      <NavBarGen authState={authState}/>
+      <Routing authState={authState}/>
     </div>
     </Router>
   );
