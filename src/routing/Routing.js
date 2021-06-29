@@ -19,7 +19,7 @@ const Routing = () => {
     return (
         <Switch>
             <AuthContext.Provider value={providerValue}>
-                <Route exact path="/"><Home/></Route>
+                <Route exact path="/"><Login/></Route>
                 <Route exact path="/login"><Login/></Route>
                 <Route exact path="/dashboard"><Dashboard />
                 </Route>

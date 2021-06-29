@@ -10,10 +10,7 @@ import { AuthContext } from '../context/AuthContext';
 const Experience = () => {
     const [phrases, setPhrases] = useState([]);
     const [loading, toggleLoading] = useState(true);
-    const {value, setValue} = useContext(AuthContext)
-
-
-    console.log(value);
+    const {user, setUser} = useContext(AuthContext);
     
     const param = useParams();
 
@@ -125,6 +122,9 @@ const Experience = () => {
         }
         
         useEffect(() => {
+            if(!user.isAuthenticated) {
+                window.location.href="login"
+            }
             getAllPhrases();
         },[])
         

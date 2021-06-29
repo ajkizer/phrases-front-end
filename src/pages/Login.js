@@ -10,11 +10,11 @@ const Login = () => {
     const [hasAccount, toggleHasAccount] = useState(true);
     const {user, setUser} = useContext(AuthContext)
 
-    const checkIfLoggedIn = () => {
- 
-    }
+
     useEffect(() => {
-        checkIfLoggedIn()
+        if(user.isAuthenticated){
+            window.location.href="/dashboard"
+        }
     }, [])
   
 
