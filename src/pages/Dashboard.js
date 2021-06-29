@@ -4,6 +4,7 @@ import { devMain, auth } from '../utils/apiURLs'
 import { Col, Card, Modal, Form, Button } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import {ExperienceContext} from '../context/ExperienceContext'
 
 const Dashboard = () => {
     const [loading, toggleLoading] = useState(true);
@@ -24,15 +25,14 @@ const Dashboard = () => {
 
     }
 
+    console.log(user);
 
     useEffect(() => {
-        if(!user.isAuthenticated){
-            window.location.href="/login"
-        }
+
 
         getExperiences();
 
-    }, [user, setUser])
+    }, [])
 
     const AddExperience = () => {
         const [show, setShow] = useState(false);
@@ -134,7 +134,7 @@ const Dashboard = () => {
     return (
         <div className="dashboard">
 
-
+            {!user.isAuthenticated && <Redirect to="/login"/>}
             {loading ? "loading..." : <><AddExperience /><Experiences /></>}
 
         </div>

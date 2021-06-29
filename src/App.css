@@ -1,11 +1,16 @@
 :root {
  --shadow-basic: 1px 2px 5px 0px rgba(0,0,0,.4);
+ --dark-blue: #233E8B;
+ --teal: #1EAE98;
+ --mint: #A9F1DF;
+ --yellow: #FFFFC7;
 }
 
 
 
 .App {
   text-align: center;
+  background: var(--dark-blue);
 }
 
 .App-logo {
@@ -57,4 +62,8 @@
 .options__buttons {
   display: flex;
   justify-content: center;
+}
+
+.phrases .card.phrases-card {
+  background: var(--teal)
 }

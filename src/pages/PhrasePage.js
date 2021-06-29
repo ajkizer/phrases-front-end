@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext} from 'react'
 import axios from 'axios';
 import { Link, Redirect, useParams } from 'react-router-dom';
 import { devMain } from '../utils/apiURLs'
@@ -6,6 +6,7 @@ import { Card, Row, Col, Button, Form, Modal } from 'react-bootstrap'
 import AddChild from '../components/forms/AddChild';
 import Variation from '../components/cards/Variation'
 import Study from '../components/activities/Study'
+import { AuthContext } from '../context/AuthContext';
 
 const PhrasePage = () => {
     const [currentPhrase, setCurrentPhrase] = useState({})
@@ -13,6 +14,7 @@ const PhrasePage = () => {
     const [loading, toggleLoading] = useState(true);
     const [mode, setMode] = useState("viewAll")
     const { id, phrase_id } = useParams();
+    const {user, setUser} = useContext(AuthContext)
 
     const getPhrase = async () => {
         const res = await axios.get(`${devMain}/phrases/${phrase_id}`)
@@ -27,6 +29,7 @@ const PhrasePage = () => {
     }
 
     useEffect(() => {
+     
         getPhrase();
     }, [])
 
@@ -48,6 +51,10 @@ const PhrasePage = () => {
     }
 
 
+
+    if(!user.isAuthenticated){
+        return <Redirect to="/login"/>
+    }
 
     return (
 

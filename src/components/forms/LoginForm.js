@@ -34,9 +34,9 @@ const LoginForm = ({toggleHasAccount}) => {
           
             res = await axios.get(`${auth}/me`)
 
-            setUser(res.data.data);
+            setUser({user: res.data.data, isAuthenticated: true});
             localStorage.setItem("currentUserPhrases", JSON.stringify(res.data.data))
-            window.location.href="/dashboard"
+
            
         } catch (error) {
             console.error(error);
@@ -49,6 +49,7 @@ const LoginForm = ({toggleHasAccount}) => {
         e.preventDefault();
         login();
     }
+
 
     return (<><h3>Login to Profile</h3>
         <Form onSubmit={onSubmit}>
