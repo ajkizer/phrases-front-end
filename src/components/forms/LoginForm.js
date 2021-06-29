@@ -51,9 +51,10 @@ const LoginForm = ({toggleHasAccount}) => {
     }
 
 
-    return (<><h3>Login to Profile</h3>
-        <Form onSubmit={onSubmit}>
-
+    return (<>
+        <Form onSubmit={onSubmit} className="login-form">
+        <h3>Login</h3>
+        <div className="login-form__inputs">
             <Form.Group controlId="login.name">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" value={username} name="username" onChange={onChange} />
@@ -62,7 +63,8 @@ const LoginForm = ({toggleHasAccount}) => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" value={password} name="password" onChange={onChange} />
             </Form.Group>
-            <Button type="submit">Submit</Button>
+            </div>
+            <Button variant="light" className="m-2" type="submit">Submit</Button>
             <small onClick={() => toggleHasAccount(false)}>Don't have an account?</small>
         </Form></>)
 }
