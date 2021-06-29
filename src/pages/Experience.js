@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Card, Col, Modal, Button, Form, Row } from 'react-bootstrap';
 import FlashCards from '../components/activities/Study';
 import DeleteConfirm from '../components/forms/DeleteConfirm';
+import PhraseCard from '../components/cards/PhraseCard'
 import { AuthContext } from '../context/AuthContext';
 
 const Experience = () => {
@@ -33,27 +34,9 @@ const Experience = () => {
 
 
 
-    const PhraseCard = ({ phrase }) => {
-        const deletePhrase = async (e) => {
-            e.preventDefault();
-            try {
-               
-                await axios.delete(`${devMain}/phrases/${phrase._id}`);
-            } catch (error) {
-                console.log(error)
-            }
-
-           const updateIndex = phrases.map(item => item._id).indexOf(phrase._id);
-
-            setPhrases([...phrases.slice(0, updateIndex), ...phrases.slice(updateIndex+1)])
-        }
-
-
-        return (<Col md={{ span: 6, offset: 3 }}><Card className="phrases__card"><Card.Body><Button onClick={deletePhrase}><i className="fas fa-trash"></i></Button><Link to={`/dashboard/experiences/${param.id}/phrases/${phrase._id}`}><Card.Text>{phrase.meaning}</Card.Text><Card.Text><em>"{phrase.phrase}"</em></Card.Text><Card.Text>{phrase.nativeText && phrase.nativeText}</Card.Text></Link></Card.Body></Card></Col>)
-    }
 
     const Phrases = () => {
-        return (<div className="phrases">{phrases.map(phrase => <PhraseCard phrase={phrase} />)}</div>)
+        return (<Row className="phrases">{phrases.map(phrase => <PhraseCard param={param} phrase={phrase} />)}</Row>)
     }
 
     const AddPhrase = ({ updatePhrases }) => {
@@ -87,8 +70,8 @@ const Experience = () => {
         }
 
 
-        return (<div className="phrases__add-phrase"> <Button onClick={handleShow}>
-            Add Phrase
+        return (<div className="phrases__add-phrase"> <Button variant="light" onClick={handleShow}>
+       <i class="far fa-comment-alt-plus"></i>
         </Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -132,8 +115,10 @@ const Experience = () => {
 
     }
 
-    const Options = () => {
-        const [mode, setMode] = useState("viewPhrases");
+    const [mode, setMode] = useState("viewPhrases");
+
+    const Options = ({setMode}) => {
+     
 
         const viewPhrases = () => {
             setMode("viewPhrases")
@@ -147,12 +132,12 @@ const Experience = () => {
             <Col>
                 
                     <div  className="options__buttons">
-                    <Col xs={{span: 1}}><Button onClick={viewPhrases}>View Phrases</Button></Col>
-                    <Col xs={{span: 1}}><Button onClick={flashCards}>Study</Button></Col>
+                    <Col xs={{span: 1}}><Button variant="light" onClick={viewPhrases}><i class="fas fa-comment-lines"></i></Button></Col>
+                    <Col xs={{span: 1}}><Button variant="light" onClick={flashCards}><i class="far fa-book-open"></i></Button></Col>
                     <Col xs={{span: 1}}><AddPhrase updatePhrases={updatePhrases} /></Col>
                     </div>
                
-                <Selection mode={mode}/>
+               
             </Col>
         )
     }
@@ -162,7 +147,7 @@ const Experience = () => {
 
     return (
         <div>
-            <div>{loading ? "loading..." : <Options/>}</div>
+            <div>{loading ? "loading..." : <Col><Options setMode={setMode}/> <Selection mode={mode}/></Col>}</div>
         </div>
     )
 }

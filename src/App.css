@@ -12,6 +12,8 @@
 .App {
   text-align: center;
   min-height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
   background: var(--mint);
 }
 
@@ -61,7 +63,7 @@ body {
 
 
 .phrases {
-  margin: 1rem 0;
+padding: 3rem;
 }
 
 .phrases .card {
