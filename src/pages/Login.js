@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, Col, Button } from 'react-bootstrap'
 import LoginForm from "../components/forms/LoginForm"
 import SignUpForm from '../components/forms/SignUpForm';
+import { AuthContext } from '../context/AuthContext';
 
 
 
-const Login = ({authState}) => {
+const Login = () => {
     const [hasAccount, toggleHasAccount] = useState(true);
+    const {user, setUser} = useContext(AuthContext)
 
     const checkIfLoggedIn = () => {
  
-        if(authState.isAuthenticated) {
-            window.location.href="/dashboard"
-        }
     }
     useEffect(() => {
         checkIfLoggedIn()
     }, [])
-
   
 
     return (

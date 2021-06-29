@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import { devMain } from '../utils/apiURLs';
 import axios from 'axios';
 import { Card, Col, Modal, Button, Form, Row } from 'react-bootstrap';
 import FlashCards from '../components/activities/Study';
 import DeleteConfirm from '../components/forms/DeleteConfirm';
+import { AuthContext } from '../context/AuthContext';
 
 const Experience = () => {
     const [phrases, setPhrases] = useState([]);
     const [loading, toggleLoading] = useState(true);
+    const {value, setValue} = useContext(AuthContext)
+
+
+    console.log(value);
     
     const param = useParams();
 

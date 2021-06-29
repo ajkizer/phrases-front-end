@@ -30,7 +30,7 @@ function App() {
     {
       const user = JSON.parse(localStorage.getItem("currentUserPhrases"));
       const isAuthenticated = true;
-      setAuth({user, isAuthenticated})
+      setAuth({...isAuthenticated, user, isAuthenticated})
     }
   }
 
@@ -41,7 +41,7 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <NavBarGen authState={authState}/>
+      <NavBarGen authState={authState} setAuth={setAuth}/>
       <Routing authState={authState}/>
     </div>
     </Router>

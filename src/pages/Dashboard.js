@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import { devMain, auth } from '../utils/apiURLs'
 import { Col, Card, Modal, Form, Button } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
-const Dashboard = ({authState}) => {
+const Dashboard = () => {
     const [loading, toggleLoading] = useState(true);
     const [experiences, setExperiences] = useState([]);
-    const [currentUser, setCurrentUser] = useState()
+    const {user, setUser} = useContext(AuthContext)
 
 
 
     const getExperiences = async () => {
-
-
         try {
             const res = await axios.get(`${devMain}/experiences`)
-            setExperiences(res.data.data);
-            
+            setExperiences(res.data.data);    
         } catch (error) {
             console.log(error);
         }
@@ -26,28 +24,15 @@ const Dashboard = ({authState}) => {
 
     }
 
-    const getCurrentUser = async () => {
-        const user = localStorage.getItem("currentUserPhrases");
-
-
-        if (user) {
-            return setCurrentUser(JSON.parse(user))
-        }
-
-        try {
-            const res = await axios.get(`${auth}/me`);
-            setCurrentUser(res.data.data);
-            localStorage.setItem("currentUserPhrases", JSON.stringify(res.data.data))
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
 
     useEffect(() => {
-        getCurrentUser()
+        if(!user.isAuthenticated){
+            window.location.href="/login"
+        }
+
         getExperiences();
-    }, [])
+
+    }, [user, setUser])
 
     const AddExperience = () => {
         const [show, setShow] = useState(false);
@@ -129,7 +114,7 @@ const Dashboard = ({authState}) => {
 
         return (
             <div className="dashboard__experiences">
-                {loading ? "loading" :   <h3>Hello, {authState.username}</h3>}
+           
               
 
                 {experiences.length === 0 && <p>No experiences found</p>}

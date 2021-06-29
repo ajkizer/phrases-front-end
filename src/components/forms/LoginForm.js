@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Form, Col, Button } from 'react-bootstrap'
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import {auth} from '../../utils/apiURLs'
+import { AuthContext } from '../../context/AuthContext';
 
 const LoginForm = ({toggleHasAccount}) => {
 
@@ -10,6 +11,9 @@ const LoginForm = ({toggleHasAccount}) => {
         username: "",
         password: ""
     });
+
+
+    const {user, setUser} = useContext(AuthContext);
 
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -24,12 +28,14 @@ const LoginForm = ({toggleHasAccount}) => {
             let res = await axios.post(url, formData);
 
             localStorage.setItem("token", res.data.token);
-           
-
-
 
             setAuthToken(res.data.token);
 
+          
+            res = await axios.get(`${auth}/me`)
+
+            setUser(res.data.data);
+            localStorage.setItem("currentUserPhrases", JSON.stringify(res.data.data))
             window.location.href="/dashboard"
            
         } catch (error) {
