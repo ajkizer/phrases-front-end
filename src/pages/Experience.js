@@ -34,7 +34,7 @@ const Experience = () => {
 
 
     const Phrases = () => {
-        return (<Row className="phrases">{phrases.map(phrase => <PhraseCard index={phrase._id} param={param} phrase={phrase} />)}</Row>)
+        return (<Row className="phrases">{phrases.map(phrase => <PhraseCard key={phrase._id} param={param} phrase={phrase} />)}</Row>)
     }
 
 
