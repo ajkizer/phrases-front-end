@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios';
 import {devMain} from '../../utils/apiURLs';
 import { PhraseContext } from '../../context/PhraseContext';
+import EditPhrase from '../forms/EditPhrase'
 
 const PhraseCard = ({phrase, param}) => {
     const {phrases, setPhrases} = useContext(PhraseContext)
@@ -23,7 +24,7 @@ const PhraseCard = ({phrase, param}) => {
     }
 
 
-    return (<Col md={{ span: 3}}><Card className="phrases__card"><Card.Body><Link to={`/dashboard/experiences/${param.id}/phrases/${phrase._id}`}><Card.Text>{phrase.meaning}</Card.Text><Card.Text><em>"{phrase.phrase}"</em></Card.Text><Card.Text>{phrase.nativeText && phrase.nativeText}</Card.Text></Link><ButtonGroup><Button onClick={deletePhrase}>Delete</Button></ButtonGroup></Card.Body></Card></Col>)
+    return (<Col md={{ span: 3}}><Card className="phrases__card"><Card.Body><Link to={`/dashboard/experiences/${param.id}/phrases/${phrase._id}`}><Card.Text>{phrase.meaning}</Card.Text><Card.Text><em>"{phrase.phrase}"</em></Card.Text><Card.Text>{phrase.nativeText && phrase.nativeText}</Card.Text></Link><ButtonGroup><Button onClick={deletePhrase}>Delete</Button><EditPhrase currentPhrase={phrase}/></ButtonGroup></Card.Body></Card></Col>)
 }
 
 export default PhraseCard

@@ -1,30 +1,36 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {Modal, Form, Button} from 'react-bootstrap';
 import {devMain} from '../../utils/apiURLs';
 import axios from 'axios'
+import { PhraseContext } from '../../context/PhraseContext';
 
-const EditPhrase = ({ child, children, setChildren }) => {
+const EditPhrase = ({ currentPhrase }) => {
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({
-        phrase: child.phrase,
-        meaning: child.meaning
+        phrase: currentPhrase.phrase,
+        meaning: currentPhrase.meaning,
+        nativeText: currentPhrase.nativeText || null
     })
+
+    const {phrases, setPhrases} = useContext(PhraseContext)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
 
-    const { phrase, meaning } = formData;
+    const { phrase, meaning, nativeText } = formData;
 
 
-    const editChild = async (e) => {
+    const editPhrase = async (e) => {
         e.preventDefault();
-        const URL = `${devMain}/phrases/${child._id}`
+        const URL = `${devMain}/phrases/${currentPhrase._id}`
 
         try {
-            const updateIndex = children.map(item => item._id).indexOf(child._id);
-            setChildren([...children.slice(0, updateIndex), {...children[updateIndex], ...formData}, ...children.slice(updateIndex+1)])
+            const updateIndex = phrases.map(item => item._id).indexOf(currentPhrase._id);
             const res = await axios.put(URL, formData)
+
+            console.log(res.data)
+            setPhrases([...phrases.slice(0, updateIndex), {...phrases[updateIndex], ...formData}, ...phrases.slice(updateIndex+1)])
             
         } catch (error) {
             console.log(error);
@@ -48,9 +54,11 @@ const EditPhrase = ({ child, children, setChildren }) => {
                 <Modal.Title>Add Variation</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={editChild}>
+                <Form onSubmit={editPhrase}>
                     <Form.Group><Form.Label>Phrase</Form.Label><Form.Control onChange={changeHandler} value={phrase} name="phrase" type="text" placeholder="" /></Form.Group>
                     <Form.Group><Form.Label>Meaning</Form.Label><Form.Control value={meaning} onChange={changeHandler} name="meaning" type="text" placeholder="" /></Form.Group>
+                    {phrase.nativeText &&  <Form.Group><Form.Label>NativeText</Form.Label><Form.Control value={nativeText} onChange={changeHandler} name="nativeText" type="text" placeholder="" /></Form.Group>}
+                   
                     <Button type="submit">Submit</Button>
                 </Form>
 
