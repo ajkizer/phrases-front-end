@@ -1,24 +1,44 @@
 import React, {useState} from 'react';
-import {Col, Card, Button} from 'react-bootstrap';
+import {Col, Card, Button, ButtonGroup} from 'react-bootstrap';
 
 
-const FlashCard = ({ child, showNext }) => {
-    const [showAnswer, setShowAnswer] = useState(false)
+const FlashCard = ({ flashCard, showNext, showPrevious }) => {
+    const [showAnswer, toggleShowAnswer] = useState(false)
 
-    const handleHide = () => setShowAnswer(false)
-    const handleShow = () => setShowAnswer(true)
 
     const handleClick = () => {
-        handleHide();
-        showNext();
+        toggleShowAnswer(!showAnswer);
     }
 
 
+    const next = (option) => {
+        toggleShowAnswer(false);
+        showNext(option)
+    }
+
+
+
     return (
-        <Col className="mx-auto" md={{ span: 7 }}>
-            <Card>
-                <p>Phrase: {child.phrase}</p>
-                {showAnswer ? <><p>Meaning: {child.meaning}</p><div><Button onClick={handleHide}>Hide</Button><Button onClick={handleClick}>Next</Button></div></> : <div><p><em>Answer Hidden</em></p><Button onClick={handleShow}>Show Answer</Button> </ div >}
+        <Col className="flash-card mx-auto" md={{ span: 7 }}>
+            <Card className={`p-5`}>
+
+                <p className="flash-card__phrase">{flashCard.phrase}</p>
+
+
+                {showAnswer &&   <div className="card__grow"><p className="flash-card__phrase">{flashCard.meaning}</p>{flashCard.nativeText && <p>{flashCard.nativeText}</p>}</div>}
+              
+                <ButtonGroup><Button onClick={() => next("bad")}variant="danger"><i class="fal fa-frown"></i></Button><Button onClick={next}variant="success"><i class="fal fa-smile-wink"></i></Button></ButtonGroup>
+
+
+                <div>
+    
+                   
+                <Button variant="light" onClick={handleClick}><i class="far fa-repeat-alt"></i></Button>
+        
+                </div>
+
+              
+               
             </Card>
         </Col>
     )

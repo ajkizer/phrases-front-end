@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext} from 'react'
 import axios from 'axios';
 import { Link, Redirect, useParams } from 'react-router-dom';
 import { devMain } from '../utils/apiURLs'
-import { Card, Row, Col, Button, Form, Modal } from 'react-bootstrap'
+import { Card, Row, Col, Button } from 'react-bootstrap'
 import AddChild from '../components/forms/AddChild';
 import Variation from '../components/cards/Variation'
 import Study from '../components/activities/Study'

@@ -94,15 +94,51 @@ padding: 3rem;
   font-size: 3rem;
 }
 
-@keyframes fade-in {
+@keyframes flip {
   from {
-    opacity: 0;
+    
+    transform:rotateY(180deg);
+    color: white;
   }
   to {
-    opacity: 1;
+
+    color: black;
+    transform: rotateY(0deg);
   }
+}
+
+
+.flash-card{
+  box-shadow: var(--shadow-basic);
+}
+
+.flash-card__phrase {
+  font-size: 1.5rem;
+}
+
+
+
+
+.flip-animation.card {
+  animation: flip .3s ease-in-out;
+  box-shadow: none;
+  border: none;
 }
 
 .login-form__inputs{
   margin: 3rem;
+}
+
+.card__grow {
+  animation: grow .05s ease-in;
+  font-size: 1.5rem;
+}
+
+
+@keyframes grow {
+  from {
+    font-size: 0;
+  } to {
+    font-size: 1.5rem;
+  }
 }
