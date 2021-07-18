@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import { devMain, auth } from '../utils/apiURLs'
-import { Col, Card, Modal, Form, Button } from 'react-bootstrap'
+import { Col, Card, Modal, Form, Button, ListGroup, Badge } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import {ExperienceContext} from '../context/ExperienceContext'
+
 
 const Dashboard = () => {
     const [loading, toggleLoading] = useState(true);
@@ -14,9 +14,12 @@ const Dashboard = () => {
 
 
     const getExperiences = async () => {
+       
         try {
             const res = await axios.get(`${devMain}/experiences`)
+   
             setExperiences(res.data.data);    
+        
         } catch (error) {
             console.log(error);
         }
@@ -114,28 +117,31 @@ const Dashboard = () => {
 
         return (
             <div className="dashboard__experiences">
-           
+          
               
+          <Card >   
+                <ListGroup variant="flush">
+                {experiences.length && experiences.map((experience, index) => 
+                
+                 
+                   
+                      <ListGroup.Item>{experience.targetLanguage} <i class="fad fa-book"></i> 1000 <i class="far fa-comment"></i> 25</ListGroup.Item>
+                      
+            
+        
+          
+                )}
+                </ListGroup>
+            </Card>
 
-                {experiences.length === 0 && <p>No experiences found</p>}
-                {experiences.map(experience => <Col md={{ span: 6, offset: 3 }}>
-
-                    <Card>
-                        <Link to={`/dashboard/experiences/${experience._id}`} >
-                            <p>Native Language: {experience.nativeLanguage}</p>
-                            <p>Target Language: {experience.targetLanguage}</p>
-                        </Link>
-                        <Button onClick={(e) => { removeExperience(experience._id) }}>Delete</Button>
-                    </Card>
-
-                </Col>)}</div>)
+                </div>)
     }
 
     return (
         <div className="dashboard">
 
             {!user.isAuthenticated && <Redirect to="/login"/>}
-            {loading ? "loading..." : <><AddExperience /><Experiences /></>}
+            {loading ? "loading..." : <><AddExperience /><Experiences  /></>}
 
         </div>
     )

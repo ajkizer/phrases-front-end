@@ -55,7 +55,7 @@ const Study = ({ flashCards }) => {
         } 
 
         deck.shift();
-        
+
         setCards([...deck])
     }
 
@@ -82,7 +82,7 @@ const Study = ({ flashCards }) => {
 
             <Dropdown.Toggle split variant="light" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                    {limitOptions.map(item => <Dropdown.Item onClick={() => setLimit(item)}>{item}</Dropdown.Item>)}
+                    {limitOptions.map((item,index) => <Dropdown.Item key={index} onClick={() => setLimit(item)}>{item}</Dropdown.Item>)}
                 </Dropdown.Menu>
             </Dropdown>)
     }

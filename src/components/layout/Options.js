@@ -2,7 +2,6 @@ import React, {useContext} from 'react'
 import { Card, Col, Modal, Button, Form, Row } from 'react-bootstrap';
 import { PhraseContext } from '../../context/PhraseContext';
 import AddPhrase from '../forms/AddPhrase'
-
 const Options = ({setMode}) => {
      const {phrases, setPhrases} = useContext(PhraseContext)
 
