@@ -94,6 +94,10 @@ padding: 3rem;
   font-size: 3rem;
 }
 
+.experiences {
+  padding: 4rem 0;
+}
+
 @keyframes flip {
   from {
     

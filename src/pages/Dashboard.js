@@ -116,20 +116,14 @@ const Dashboard = () => {
         }
 
         return (
-            <div className="dashboard__experiences">
+            <div className="experiences">
           
               
-          <Card >   
+          <Card>   
                 <ListGroup variant="flush">
-                {experiences.length && experiences.map((experience, index) => 
                 
-                 
-                   
-                      <ListGroup.Item>{experience.targetLanguage} <i class="fad fa-book"></i> 1000 <i class="far fa-comment"></i> 25</ListGroup.Item>
-                      
-            
-        
-          
+                {experiences.length && experiences.map((experience, index) => 
+                      <ListGroup.Item className="p-4">{experience.targetLanguage} <i class="fad fa-book"></i> 1000 <i class="far fa-comment"></i> 25</ListGroup.Item>
                 )}
                 </ListGroup>
             </Card>
