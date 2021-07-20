@@ -142,6 +142,13 @@ padding: 3rem;
 .experiences__card {
   box-shadow: var(--shadow-basic);
   margin: .5rem 0;
+  padding: 2rem 0;
+  font-size: 1.5rem;
+  transition: .12s ease-in-out;
+}
+
+.experiences__card:hover {
+  transform: scale(1.01)
 }
 
 
