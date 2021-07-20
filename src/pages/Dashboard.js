@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import { devMain, auth } from '../utils/apiURLs'
-import { Col, Card, Modal, Form, Button, ListGroup, Badge } from 'react-bootstrap'
+import { Col, Card, Modal, Form, Button, Row, Badge } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
@@ -11,20 +11,24 @@ const Dashboard = () => {
     const [experiences, setExperiences] = useState([]);
     const {user, setUser} = useContext(AuthContext)
 
-
-
     const getExperiences = async () => {
        
         try {
-            const res = await axios.get(`${devMain}/experiences`)
+            let res = await axios.get(`${devMain}/experiences`)
+
+            if(res.data.data.length === 0){
+                res = await axios.post(`${devMain}/admin/load`)
+            }
    
-            setExperiences(res.data.data);    
+            setExperiences(res.data.data);
+      
+
         
         } catch (error) {
             console.log(error);
         }
 
-        toggleLoading(false);
+     
 
     }
 
@@ -34,6 +38,7 @@ const Dashboard = () => {
 
 
         getExperiences();
+        toggleLoading(false);
 
     }, [])
 
@@ -99,43 +104,31 @@ const Dashboard = () => {
 
 
     const Experiences = () => {
-
-
-
-        const removeExperience = async (id) => {
-            const URL = `${devMain}/experiences/${id}`
-            console.log(URL)
-
-            try {
-                console.log(await axios.delete(URL))
-                setExperiences(experiences.filter(item => item._id !== id))
-            } catch (error) {
-                console.log(error);
-            }
-
-        }
+        
 
         return (
-            <div className="experiences">
+          
           
               
-          <Card>   
-                <ListGroup variant="flush">
-                
-                {experiences.length && experiences.map((experience, index) => 
-                      <ListGroup.Item className="p-4">{experience.targetLanguage} <i class="fad fa-book"></i> 1000 <i class="far fa-comment"></i> 25</ListGroup.Item>
-                )}
-                </ListGroup>
-            </Card>
-
-                </div>)
+                <Row>
+                    <Col md={{span: 6, offset: 2}}>
+                        {experiences.length && experiences.map((experience, index) => 
+                            <Card className="experiences__card"><Row><Col>
+                           <span class={`flag-icon flag-icon-${experience.flagIcon}`}></span></Col><Col>{experience.targetLanguage}   </Col><Col><i class="fad fa-book"></i><span>1000</span><i class="far fa-comment"></i> <span>25</span></Col></Row></Card>
+                        )}
+                    </Col>
+                    <Col md={{span:2}}>
+                        <AddExperience />
+                    </Col>
+                </Row>
+)
     }
 
     return (
         <div className="dashboard">
 
             {!user.isAuthenticated && <Redirect to="/login"/>}
-            {loading ? "loading..." : <><AddExperience /><Experiences  /></>}
+            {loading ? "loading..." : <><Experiences  /></>}
 
         </div>
     )

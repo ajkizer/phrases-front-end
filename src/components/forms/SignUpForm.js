@@ -20,7 +20,7 @@ const SignUpForm = ({toggleHasAccount}) => {
 
     
     const register = async () => {
-        let url = `${auth}/register`
+       
 
 
         let formDataCopy = formData;
@@ -28,12 +28,16 @@ const SignUpForm = ({toggleHasAccount}) => {
         formDataCopy.role = "customer"
 
         try {
+            let url = `${auth}/register`
             let res = await axios.post(url, formDataCopy);
-
             localStorage.setItem("token", res.data.token);
+            setAuthToken(res.data.token);
+
+
+       
         
 
-            setAuthToken(res.data.token);
+          
 
             window.location.href = "/dashboard"
         } catch (error) {

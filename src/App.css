@@ -139,6 +139,12 @@ padding: 3rem;
 }
 
 
+.experiences__card {
+  box-shadow: var(--shadow-basic);
+  margin: .5rem 0;
+}
+
+
 @keyframes grow {
   from {
     font-size: 0;

@@ -1,5 +1,5 @@
 import './App.css';
-
+import 'flag-icon-css/css/flag-icon.min.css'
 
 import React, {useState, useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
