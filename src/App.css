@@ -139,16 +139,32 @@ padding: 3rem;
 }
 
 
-.experiences__card {
+.experiences__card.card {
   box-shadow: var(--shadow-basic);
   margin: .5rem 0;
-  padding: 2rem 0;
+  padding: 2rem;
   font-size: 1.5rem;
   transition: .12s ease-in-out;
+  text-align: left;
+  background: var(--teal)
 }
 
 .experiences__card:hover {
-  transform: scale(1.01)
+  transform: scale(1.01);
+  filter: brightness(1.1)
+}
+
+
+.experiences__card a{
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+
+.experiences__card a:hover{
+  text-decoration: none;
+  color: var(--text-color);
+  filter: brightness(.9);
 }
 
 

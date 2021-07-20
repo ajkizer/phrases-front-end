@@ -114,8 +114,19 @@ const Dashboard = () => {
                     <Col md={{span: 6, offset: 3
                 }}>
                         {experiences.length && experiences.map((experience, index) => 
-                            <Card className="experiences__card"><Row><Col>
-                           <span class={`flag-icon flag-icon-${experience.flagIcon}`}></span></Col><Col>{experience.targetLanguage}   </Col><Col><i class="fad fa-book"></i><span>1000</span><i class="far fa-comment"></i> <span>25</span></Col></Row></Card>
+                            <Card className="experiences__card"><Row>
+                                    <Col>
+                                        <Link to="/dashboard/experiences/:id"><span class={`flag-icon flag-icon-${experience.flagIcon}`}></span> {experience.targetLanguage}</Link>   
+                                    </Col>
+                                    <Col>
+                                    
+                                    <i class="fad fa-book">
+                                    </i><span>1000</span>
+                                    <i class="far fa-comment"></i>
+                                    <span>25</span>
+                                    </Col>
+                                </Row>
+                            </Card>
                         )}
                     </Col>
                 
