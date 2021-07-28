@@ -5,7 +5,6 @@ import {ExperienceContext} from '../context/ExperienceContext';
 import {PhraseContext} from '../context/PhraseContext'
 import Dashboard from '../pages/Dashboard';
 import Experience from '../pages/Experience';
-import Home from '../pages/Home';
 import Login from '../pages/Login';
 import PhrasePage from '../pages/PhrasePage'
 

@@ -66,10 +66,10 @@ const PhrasePage = () => {
                     <AddChild updatePhrase={updatePhrase} currentPhrase={currentPhrase} />
 
 
-                    <div><Button variant="light" onClick={startStudySession}><i class="fas fa-books"></i></Button></div>
+                    <div><Button variant="primary" onClick={startStudySession}><i class="fas fa-books"></i></Button></div>
 
 
-                    <div><Button variant="light" onClick={viewAll}><i class="fad fa-eye"></i></Button></div>
+                    <div><Button variant="primary" onClick={viewAll}><i class="fad fa-eye"></i></Button></div>
 
                 </Card>
             </Col>

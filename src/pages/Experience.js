@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import { AuthContext } from '../context/AuthContext';
 import {PhraseContext} from '../context/PhraseContext'
-
+import Phrases from '../components/sections/Phrases'
 const Experience = () => {
     const [loading, toggleLoading] = useState(true);
     const {user, setUser} = useContext(AuthContext);
@@ -27,7 +27,8 @@ const Experience = () => {
     }, [])
 
     return (
-        <div>{phrases.map(phrase => <Card>{phrase.phrase}</Card>)}</div>
+
+        <div className="container">{phrases.map(phrase => <Phrases key={phrase._id} phrase={phrase}/>)}</div>
     )
 }
 
