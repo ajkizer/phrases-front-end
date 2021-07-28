@@ -13,6 +13,8 @@ const Experience = () => {
     
     const param = useParams();
 
+    //generates phrases from currentExperience
+    //TODO: Save language to localstorage, check if langauge info is already in there, and display this data instead of making an api call.
     const getPhrases = async () => {
         const res = await axios.get(`${devMain}/experiences/${param.id}/phrases`)
         setPhrases(res.data.data);
