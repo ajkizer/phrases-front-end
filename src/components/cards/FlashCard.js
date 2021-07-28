@@ -5,6 +5,8 @@ import {Col, Card, Button, ButtonGroup} from 'react-bootstrap';
 const FlashCard = ({ flashCard, showNext, showPrevious }) => {
     const [showAnswer, toggleShowAnswer] = useState(false)
 
+    console.log(flashCard);
+
 
     const handleClick = () => {
         toggleShowAnswer(!showAnswer);
@@ -16,6 +18,7 @@ const FlashCard = ({ flashCard, showNext, showPrevious }) => {
         showNext(option)
     }
 
+    console.log(flashCard)
 
 
     return (

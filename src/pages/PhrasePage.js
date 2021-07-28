@@ -9,12 +9,13 @@ import Study from '../components/activities/Study'
 import { AuthContext } from '../context/AuthContext';
 
 const PhrasePage = () => {
-    const [currentPhrase, setCurrentPhrase] = useState({})
+    const [currentPhrase, setCurrentPhrase] = useState()
     const [children, setChildren] = useState([])
     const [loading, toggleLoading] = useState(true);
     const [mode, setMode] = useState("viewAll")
     const { id, phrase_id } = useParams();
     const {user, setUser} = useContext(AuthContext)
+    console.log(id, phrase_id)
 
     const getPhrase = async () => {
         const res = await axios.get(`${devMain}/phrases/${phrase_id}`)
@@ -32,6 +33,8 @@ const PhrasePage = () => {
      
         getPhrase();
     }, [])
+
+
 
     const startStudySession = () => setMode("flashCards")
     const viewAll = () => setMode("viewAll")
@@ -54,7 +57,7 @@ const PhrasePage = () => {
 
         loading ? <>"loading"</> : <div>
 
-
+                {currentPhrase && 
             <Col md={{ span: 7 }} className="mx-auto mb-2">
                 <Button variant="light"><Link to={`/dashboard/experiences/${id}`}><i class="fas fa-arrow-left"></i></Link></Button>
                 <Card>
@@ -66,15 +69,16 @@ const PhrasePage = () => {
                     <AddChild updatePhrase={updatePhrase} currentPhrase={currentPhrase} />
 
 
-                    <div><Button variant="primary" onClick={startStudySession}><i class="fas fa-books"></i></Button></div>
+                    <div><Button variant="light" onClick={startStudySession}><i class="fas fa-books"></i></Button></div>
 
 
-                    <div><Button variant="primary" onClick={viewAll}><i class="fad fa-eye"></i></Button></div>
+                    <div><Button variant="light" onClick={viewAll}><i class="fad fa-eye"></i></Button></div>
 
                 </Card>
             </Col>
+}
             <Row>
-                {mode === "flashCards" ? <Study children={children} /> : <TakeNotes children={children} />}
+                {mode === "flashCards" ? <Study flashCards={children} /> : <TakeNotes children={children} />}
             </Row>
         </div >)
 }

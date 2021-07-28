@@ -9,7 +9,7 @@ const Study = ({ flashCards }) => {
     const [limit, setLimit] = useState(10);
     const [shuffle, toggleShuffle] = useState(false);
 
-
+    console.log(flashCards);
 
     const createDeck = () => {
         let currentLimit = limit;
@@ -20,9 +20,13 @@ const Study = ({ flashCards }) => {
             return setCards(fullDeck)
         }
 
+        console.log(currentLimit);
+
         if(currentLimit > flashCards.length){
-            currentLimit = flashCards.length - 1
+            currentLimit = flashCards.length
         }
+
+        console.log(currentLimit)
 
         for(let i = 0; i < currentLimit; i++){
             sessionDeck.push(fullDeck[i])
@@ -72,6 +76,8 @@ const Study = ({ flashCards }) => {
 
 
     const limitOptions = [5,10,25,50, 100, "all"]
+
+    console.log(cards)
 
     const OptionsDropDown = () => {
         return (

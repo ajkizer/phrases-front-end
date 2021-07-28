@@ -4,12 +4,12 @@ import {devMain} from '../../utils/apiURLs';
 import axios from 'axios'
 import { PhraseContext } from '../../context/PhraseContext';
 
-const EditPhrase = ({ currentPhrase }) => {
+const EditPhrase = ({ child }) => {
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({
-        phrase: currentPhrase.phrase,
-        meaning: currentPhrase.meaning,
-        nativeText: currentPhrase.nativeText || null
+        phrase: child.phrase,
+        meaning: child.meaning,
+        nativeText: child.nativeText || null
     })
 
     const {phrases, setPhrases} = useContext(PhraseContext)
@@ -23,10 +23,10 @@ const EditPhrase = ({ currentPhrase }) => {
 
     const editPhrase = async (e) => {
         e.preventDefault();
-        const URL = `${devMain}/phrases/${currentPhrase._id}`
+        const URL = `${devMain}/phrases/${child._id}`
 
         try {
-            const updateIndex = phrases.map(item => item._id).indexOf(currentPhrase._id);
+            const updateIndex = phrases.map(item => item._id).indexOf(child._id);
             const res = await axios.put(URL, formData)
 
             console.log(res.data)
