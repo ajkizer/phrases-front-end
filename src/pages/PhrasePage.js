@@ -39,12 +39,6 @@ const PhrasePage = () => {
 
     console.log(mode)
 
-
-
-
-
-
-
     const TakeNotes = ({ children }) => {
 
         return (<div>{children.map(item => <Variation setChildren={setChildren} children={children} key={item._id} child={item} />)}</div>)
