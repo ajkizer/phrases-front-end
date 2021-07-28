@@ -38,6 +38,8 @@ function App() {
   useEffect(() => {
     checkIfAuthenticated();
   },[])
+
+  
   return (
     <Router>
     <div className="App">

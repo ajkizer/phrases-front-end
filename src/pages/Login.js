@@ -10,14 +10,22 @@ import { AuthContext } from '../context/AuthContext';
 const Login = () => {
     const [hasAccount, toggleHasAccount] = useState(true);
     const {user, setUser} = useContext(AuthContext)
+    const [show, setShow] = useState(false);
 
+    useEffect(() => {
+        if(user.authError){
+            setShow(true)
+            setTimeout(() => {setShow(false)},2000)
+        }
+    }, [user])
 
+    console.log(user);
   
 
     return (
-        <Col xs={{ span: 12 }} md={{ span: 6, offset: 3 }}>
+        <Col xs={{ span: 12 }} md={{span: 8, offset:2}}lg={{ span: 4, offset: 6 }}>
             {user.isAuthenticated && <Redirect to="/dashboard"/>}
-            {hasAccount ? <LoginForm toggleHasAccount={toggleHasAccount}/> : <SignUpForm toggleHasAccount={toggleHasAccount}/>}
+            {hasAccount ? <LoginForm show={show} setShow={setShow} toggleHasAccount={toggleHasAccount}/> : <SignUpForm show={show} setShow={setShow} toggleHasAccount={toggleHasAccount}/>}
         </Col>
     )
 }

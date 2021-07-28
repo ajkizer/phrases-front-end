@@ -3,19 +3,20 @@ import React from 'react';
 
 const currentUser = JSON.parse(localStorage.getItem("currentUserPhrases"));
 // const token = JSON.parse(localStorage.getItem("token"));
-console.log({currentUser})
 
 let isAuthenticated;
+let authError = false;
 
 if(currentUser){
-    isAuthenticated = true
+    isAuthenticated = true;
 } else {
-    isAuthenticated = false
+    isAuthenticated = false;
 }
 
 export const initialState = {
     user: currentUser,
-    isAuthenticated
+    isAuthenticated,
+    authError
 }
 
 export const AuthContext = React.createContext(initialState)

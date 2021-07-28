@@ -4,8 +4,9 @@ import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import {auth} from '../../utils/apiURLs'
 import { AuthContext } from '../../context/AuthContext';
+import { Alert } from 'react-bootstrap';
 
-const LoginForm = ({toggleHasAccount}) => {
+const LoginForm = ({toggleHasAccount, show, setShow}) => {
 
     const [formData, setFormData] = useState({
         username: "",
@@ -23,8 +24,9 @@ const LoginForm = ({toggleHasAccount}) => {
     const login = async () => {
         let url = `${auth}/login`
 
-
+     
         try {
+         
             let res = await axios.post(url, formData);
 
             localStorage.setItem("token", res.data.token);
@@ -39,7 +41,11 @@ const LoginForm = ({toggleHasAccount}) => {
 
            
         } catch (error) {
-            console.error(error);
+            console.log("hello")
+            setShow(true)
+            setTimeout(() => {
+                setShow(false)
+            }, 2000)
         }
     }
 
@@ -53,6 +59,7 @@ const LoginForm = ({toggleHasAccount}) => {
 
     return (<>
         <Form onSubmit={onSubmit} className="login-form">
+            <Alert className={!show && "is-invisible"} variant="danger">Invalid Credentials</Alert>
         <h3>Login</h3>
         <div className="login-form__inputs">
             <Form.Group controlId="login.name">
